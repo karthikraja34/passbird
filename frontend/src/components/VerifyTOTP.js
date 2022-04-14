@@ -80,6 +80,11 @@ export default function VerifyTOTP({ user, onVerificationSuccess }) {
               onChange={(e) => setTOTPCode(e.target.value)}
               type="number"
               placeholder="Enter your verification code"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  verifyTOTP(totpCode);
+                }
+              }}
             />
             <Button
               onClick={() => verifyTOTP(totpCode)}
