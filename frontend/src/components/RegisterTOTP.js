@@ -13,7 +13,7 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 
-function VerifyTOTP({ user }) {
+function VerifyTOTP({ user, onVerificationSuccess }) {
   const [totpCode, setTOTPCode] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ function VerifyTOTP({ user }) {
         "SOFTWARE_TOKEN_MFA"
       );
       setError(null);
-      localStorage.setItem("token", loggedUser.accessToken.jwtToken);
+      onVerificationSuccess(loggedUser.accessToken);
     } catch (e) {
       if (e.name == "CodeMismatchException") {
         setError("Your code is incorrect");
@@ -85,7 +85,7 @@ function VerifyTOTP({ user }) {
   );
 }
 
-function RegisterTOTP({ user }) {
+function RegisterTOTP({ user, onVerificationSuccess }) {
   const [qrCode, setQRCode] = useState(null);
 
   const setupTOTP = () => {
@@ -131,7 +131,7 @@ function RegisterTOTP({ user }) {
             </Heading>
           </Box>
         </Stack>
-        <VerifyTOTP user={user} />
+        <VerifyTOTP user={user} onVerificationSuccess={onVerificationSuccess} />
       </Flex>
     </>
   );

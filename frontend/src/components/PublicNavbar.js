@@ -10,21 +10,8 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { Link as RouteLink } from "react-router-dom";
-import { Auth } from "aws-amplify";
-import { useNavigate } from "react-router-dom";
 
-export default function Navbar() {
-  const navigate = useNavigate();
-
-  const signOut = async () => {
-    try {
-      await Auth.signOut();
-      navigate("/signin");
-    } catch (error) {
-      console.log("error signing out: ", error);
-    }
-  };
-
+export default function PublicNavbar() {
   return (
     <>
       <Box bg={useColorModeValue("blue.100", "blue.900")} px={4}>
@@ -55,16 +42,21 @@ export default function Navbar() {
                       to="/signin"
                       variant={"link"}
                     >
-                      Dashboard
+                      Sign In
                     </Button>
                     <Button
                       display={{ base: "none", md: "inline-flex" }}
                       fontSize={"sm"}
                       fontWeight={600}
-                      onClick={() => signOut()}
-                      variant={"link"}
+                      color={"white"}
+                      bg={"blue.400"}
+                      as={RouteLink}
+                      to="/signup"
+                      _hover={{
+                        bg: "blue.300",
+                      }}
                     >
-                      Logout
+                      Sign Up
                     </Button>
                   </Stack>
                 </Menu>

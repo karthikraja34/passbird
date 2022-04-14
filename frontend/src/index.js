@@ -3,11 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
-import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import awsExports from "./aws-exports";
 import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 Amplify.configure(awsExports);
 
@@ -15,10 +17,32 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ChakraProvider>
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<SignupPage />} />
-        <Route path="signup" element={<SignupPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute authenticatedOnly>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="signin"
+          element={
+            <ProtectedRoute>
+              <LoginPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="signup"
+          element={
+            <ProtectedRoute>
+              <SignupPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   </ChakraProvider>
