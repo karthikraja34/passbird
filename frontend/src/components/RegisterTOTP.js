@@ -32,7 +32,7 @@ function VerifyTOTP({ user, onVerificationSuccess }) {
         "SOFTWARE_TOKEN_MFA"
       );
       setError(null);
-      onVerificationSuccess(loggedUser.accessToken);
+      onVerificationSuccess(loggedUser.idToken);
     } catch (e) {
       if (e.name == "CodeMismatchException") {
         setError("Your code is incorrect");

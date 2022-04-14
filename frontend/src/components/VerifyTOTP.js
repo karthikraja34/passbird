@@ -31,12 +31,7 @@ export default function VerifyTOTP({ user, onVerificationSuccess }) {
         "SOFTWARE_TOKEN_MFA"
       );
       setError(null);
-      console.log(
-        "Sign in : ",
-        loggedUser,
-        loggedUser.signInUserSession.accessToken.jwtToken
-      );
-      onVerificationSuccess(loggedUser.signInUserSession.accessToken);
+      onVerificationSuccess(loggedUser.signInUserSession.idToken);
     } catch (e) {
       if (e.name == "CodeMismatchException") {
         setError("Your code is incorrect");
