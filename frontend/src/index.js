@@ -10,6 +10,7 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
 
 Amplify.configure(awsExports);
 
@@ -21,7 +22,7 @@ root.render(
         <Route
           path="/"
           element={
-            <ProtectedRoute authenticatedOnly>
+            <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
           }
@@ -30,17 +31,17 @@ root.render(
         <Route
           path="signin"
           element={
-            <ProtectedRoute>
+            <PublicRoute>
               <LoginPage />
-            </ProtectedRoute>
+            </PublicRoute>
           }
         />
         <Route
           path="signup"
           element={
-            <ProtectedRoute>
+            <PublicRoute>
               <SignupPage />
-            </ProtectedRoute>
+            </PublicRoute>
           }
         />
       </Routes>

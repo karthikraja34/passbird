@@ -52,7 +52,7 @@ export default function Navbar() {
                       fontSize={"sm"}
                       fontWeight={600}
                       as={RouteLink}
-                      to="/signin"
+                      to="/"
                       variant={"link"}
                     >
                       Dashboard

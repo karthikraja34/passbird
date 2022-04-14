@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import { Navigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import PublicNavbar from "./PublicNavbar";
 
-export default function PrivateRoute({ children }) {
-  const [isAuthenticated, setLoggedIn] = useState(true);
+export default function PublicRoute({ children }) {
+  const [isAuthenticated, setLoggedIn] = useState(false);
 
   useEffect(() => {
     (async () => {
       let user = null;
-
       try {
         user = await Auth.currentAuthenticatedUser();
         if (user) {
@@ -25,13 +24,13 @@ export default function PrivateRoute({ children }) {
 
   return (
     <>
-      {isAuthenticated && (
+      {isAuthenticated && <Navigate to="/" />}
+      {!isAuthenticated && (
         <>
-          <Navbar />
+          <PublicNavbar />
           {children}
         </>
       )}
-      {!isAuthenticated && <Navigate to="/signin" />}
     </>
   );
 }
