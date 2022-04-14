@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -121,3 +123,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+COGNITO_AWS_REGION = "ap-south-1"
+COGNITO_USER_POOL = 'ap-south-1_5AMX286Rr'
+COGNITO_AUDIENCE = '4eud5e0cft9h0mh8trce5np72b'
+COGNITO_PUBLIC_KEYS_CACHING_ENABLED = True
+COGNITO_PUBLIC_KEYS_CACHING_TIMEOUT = 60*60*24
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "django_cognito_jwt.JSONWebTokenAuthentication"
+    ]
+}
+
+AUTH_USER_MODEL = 'users.User'
